@@ -18,8 +18,8 @@ export default () => {
 
     api.app.authenticate()
       .then(() => {
-        backend.create()
-          .then((result) => {
+        backend.create({})
+          .then(() => {
             dispatch({ type: APP_DONE_LOADING })
             dispatch({ type: LOAD_SUCCESS })
           })
