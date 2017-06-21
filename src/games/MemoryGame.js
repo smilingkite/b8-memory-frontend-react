@@ -7,6 +7,7 @@ import subscribeToGames from '../actions/games/subscribe'
 import Card from './Card'
 import './MemoryGame.css'
 import flipCard from '../actions/games/flip-card'
+import WinnerStatus from './WinnerStatus'
 
 class MemoryGame extends PureComponent {
   componentWillMount() {
@@ -37,7 +38,7 @@ class MemoryGame extends PureComponent {
   }
 
   render() {
-    const { game, hasTurn, wonTheGame, lostTheGame } = this.props
+    const { game, hasTurn, pairs } = this.props
 
     if (!game) return null
 
@@ -45,14 +46,21 @@ class MemoryGame extends PureComponent {
       <div className="MemoryGame">
         <h1>MemoryGame!</h1>
 
-        <p className="turn">It is { hasTurn ? 'YOUR' : 'THEIR' } turn!</p>
+        { game.isPlayable ?
+          <p className="turn">
+            { hasTurn ? '☝️' : '🖐' } It is { hasTurn ? 'YOUR' : 'THEIR' } turn!
+          </p> :
+          <p className="waiting">
+            Waiting for other players to join...
+          </p> }
+
+        <p className="wonCards">{ pairs.join(', ') }</p>
 
         <div className="board">
           {!game.winnerId && game.cards.map(this.renderCard.bind(this))}
-          {wonTheGame && <h1 className="youWin">YOU WON!</h1>}
-          {lostTheGame && <h1 className="youWin">YOU LOSE!</h1>}
         </div>
 
+        <WinnerStatus />
         <JoinGameDialog />
       </div>
     )
@@ -61,11 +69,12 @@ class MemoryGame extends PureComponent {
 
 const mapStateToProps = ({ currentUser, currentGame, games, subscriptions }) => {
   const game = games.filter((g) => (g._id === currentGame))[0]
+  const currentPlayer = game && game.players.filter((p) => (p.userId === currentUser._id))[0]
+
   return {
+    pairs: (currentPlayer && currentPlayer.pairs) || [],
     game,
     hasTurn: game && game.players.map((p) => (p.userId))[game.turn] === currentUser._id,
-    wonTheGame: game && game.winnerId === currentUser._id,
-    lostTheGame: game && game.winnerId && game.winnerId !== currentUser._id,
     subscribed: subscriptions.includes('games'),
   }
 }

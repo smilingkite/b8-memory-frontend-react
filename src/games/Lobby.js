@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import WatchGameIcon from 'material-ui/svg-icons/image/remove-red-eye';
 import JoinGameIcon from 'material-ui/svg-icons/social/person-add';
 import PlayGameIcon from 'material-ui/svg-icons/hardware/videogame-asset';
+import WaitingIcon from 'material-ui/svg-icons/image/timelapse';
 import './Lobby.css'
 
 class Lobby extends PureComponent {
@@ -40,7 +41,7 @@ class Lobby extends PureComponent {
 
   renderGame(game, index) {
     let ActionIcon = this.isJoinable(game) ? JoinGameIcon : WatchGameIcon
-    if (this.isPlayer(game)) ActionIcon = PlayGameIcon
+    if (this.isPlayer(game)) ActionIcon = game.isPlayable ? PlayGameIcon : WaitingIcon
 
     return (
       <MenuItem
