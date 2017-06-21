@@ -1,0 +1,48 @@
+.Card
+  perspective: 1000px
+  width: 140px
+  height: 140px
+  display: inline-block
+  margin: 20px
+  cursor: pointer
+
+  &.won
+    .front,
+    .back
+      visibility: hidden
+
+  .front,
+  .back
+    width: 140px
+    height: 140px
+    border: 8px solid #fff
+    border-radius: 8px
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.38)
+
+  &.flipped .flipper
+    transform: rotateY(180deg)
+
+  .flipper
+    transition: 0.6s
+    transform-style: preserve-3d
+    position: relative
+    margin-left: -18px
+
+  .front, .back
+    backface-visibility: hidden
+    position: absolute
+    margin: 0
+
+  .front
+    z-index: 2
+    transform: rotateY(0deg)
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAPUlEQVQoU2NkgILL+vr/dS9eZITx0WmwBEwRPsWM6IpwKSbeRJLciMsDyM7A6Ut0t2NViO4hEJ8yE7F5EAA2OEI7vEtw2gAAAABJRU5ErkJggg==")
+    background-repeat: repeat
+
+  .back
+    transform: rotateY(180deg)
+    text-align: center
+
+    span.symbol
+      font-size: 118px
+      color: #d32f2f

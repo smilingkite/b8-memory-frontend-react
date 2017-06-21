@@ -6,7 +6,7 @@ import { push } from 'react-router-redux'
 import signOut from '../actions/user/sign-out'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import LocalDining from 'material-ui/svg-icons/maps/local-dining'
+import MemoryIcon from 'material-ui/svg-icons/hardware/memory'
 import FlatButton from 'material-ui/FlatButton'
 
 class Navigation extends PureComponent {
@@ -22,8 +22,8 @@ class Navigation extends PureComponent {
     const { signedIn } = this.props
     return (
       <AppBar
-        title="Recipes"
-        iconElementLeft={<IconButton onClick={this.goHome.bind(this)}><LocalDining /></IconButton>}
+        title="Memory Game"
+        iconElementLeft={<IconButton onClick={this.goHome.bind(this)}><MemoryIcon /></IconButton>}
         iconElementRight={signedIn ?
           <FlatButton label="Sign out" onClick={this.props.signOut} /> :
           <FlatButton label="Sign up" onClick={this.signUp.bind(this)} />
