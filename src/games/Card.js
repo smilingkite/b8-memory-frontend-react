@@ -2,11 +2,38 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import './Card.css'
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class Card extends PureComponent {
   static propTypes = {
     symbol: PropTypes.string.isRequired,
     visible: PropTypes.bool,
     won: PropTypes.bool,
+  }
+
+  state = { visible: false, won: false }
+
+  componentDidMount() {
+    const { visible, won } = this.props
+    this.setState({ visible, won })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const isLastCard = this.props.index === nextProps.lastCard
+    const lastCardChanged = !!nextProps.lastCard && this.props.lastCard !== nextProps.lastCard
+    const { visible, won } = nextProps
+
+    if (isLastCard) {
+      this.setState({ visible: true })
+    }
+
+    if (lastCardChanged) {
+      this.pauseUpdate(visible, won)
+    } else {
+      this.setState({ visible, won })
+    }
   }
 
   flip() {
@@ -15,8 +42,17 @@ class Card extends PureComponent {
     onFlip()
   }
 
+  pauseUpdate(visible, won) {
+    const component = this
+    setTimeout(() => {
+      component.setState({ visible, won })
+    }, 1000)
+
+  }
+
   render() {
-    const { visible, symbol, won } = this.props
+    const { symbol } = this.props
+    const { visible, won } = this.state
 
     return (
       <div className={`Card${visible ? ' flipped' : ''}${won ? ' won' : ''}`} onClick={this.flip.bind(this)}>

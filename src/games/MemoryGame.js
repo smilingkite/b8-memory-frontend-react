@@ -22,26 +22,35 @@ class MemoryGame extends PureComponent {
     const { game } = this.props
 
     return () => {
-      console.log('hi')
       this.props.flipCard(game._id, cardIndex)
     }
   }
 
   renderCard(card, index) {
+    const { lastCard } = this.props.game
+
     return <Card
       key={index} { ...card }
+      index={index}
+      lastCard={lastCard}
       onFlip={this.flipCard(index).bind(this)} />
   }
 
   render() {
-    const { game } = this.props
+    const { game, hasTurn, wonTheGame, lostTheGame } = this.props
+
+    if (!game) return null
 
     return (
       <div className="MemoryGame">
         <h1>MemoryGame!</h1>
 
+        <p className="turn">It is { hasTurn ? 'YOUR' : 'THEIR' } turn!</p>
+
         <div className="board">
-          {game && game.cards.map(this.renderCard.bind(this))}
+          {!game.winnerId && game.cards.map(this.renderCard.bind(this))}
+          {wonTheGame && <h1 className="youWin">YOU WON!</h1>}
+          {lostTheGame && <h1 className="youWin">YOU LOSE!</h1>}
         </div>
 
         <JoinGameDialog />
@@ -50,10 +59,13 @@ class MemoryGame extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ currentGame, games, subscriptions }) => {
+const mapStateToProps = ({ currentUser, currentGame, games, subscriptions }) => {
   const game = games.filter((g) => (g._id === currentGame))[0]
   return {
     game,
+    hasTurn: game && game.players.map((p) => (p.userId))[game.turn] === currentUser._id,
+    wonTheGame: game && game.winnerId === currentUser._id,
+    lostTheGame: game && game.winnerId && game.winnerId !== currentUser._id,
     subscribed: subscriptions.includes('games'),
   }
 }
