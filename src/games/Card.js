@@ -2,10 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import './Card.css'
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 class Card extends PureComponent {
   static propTypes = {
     symbol: PropTypes.string.isRequired,

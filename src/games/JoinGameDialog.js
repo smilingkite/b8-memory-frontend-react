@@ -24,7 +24,7 @@ class JoinGameDialog extends PureComponent {
           label="No Thanks"
           primary={true} />
       </Link>,
-      <FlatButton
+      <RaisedButton
         label="Join Game"
         primary={true}
         keyboardFocused={true}

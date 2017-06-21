@@ -3,7 +3,6 @@
 import API from '../../api'
 import {
   LOAD_ERROR,
-  LOAD_SUCCESS
 } from '../loading'
 
 const api = new API()
