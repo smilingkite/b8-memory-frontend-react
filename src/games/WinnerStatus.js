@@ -6,9 +6,9 @@ import { Link } from 'react-router'
 
 class WinnerStatus extends PureComponent {
   render() {
-    const { wonTheGame, lostTheGame, draw } = this.props
+    const { wonTheGame, lostTheGame } = this.props
 
-    if (!wonTheGame && !lostTheGame && !draw) return null
+    if (!wonTheGame && !lostTheGame) return null
 
     const actions = [
       <Link to="/">
@@ -19,7 +19,6 @@ class WinnerStatus extends PureComponent {
     ]
 
     let title = wonTheGame ? '😈 YOU WON!' : '👿 YOU LOSE!'
-    if (draw) title = '🤡 A DRAW!'
 
     return (
       <div>
@@ -31,7 +30,6 @@ class WinnerStatus extends PureComponent {
         >
           {wonTheGame && <p className="youWin">Well done!</p>}
           {lostTheGame && <p className="youLose">Don't be sad!</p>}
-          {draw && <p className="youDraw">This asks for a rematch!</p>}
         </Dialog>
       </div>
     )
@@ -43,7 +41,6 @@ const mapStateToProps = ({ currentUser, currentGame, games, subscriptions }) => 
   return {
     wonTheGame: game && game.winnerId === currentUser._id,
     lostTheGame: game && game.winnerId && game.winnerId !== currentUser._id,
-    draw: game && game.draw,
   }
 }
 
