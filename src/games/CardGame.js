@@ -11,7 +11,7 @@ import flipCard from '../actions/games/flip-card'
 import WinnerStatus from './WinnerStatus'
 
 class CardGame extends PureComponent {
-  
+debugger 
   componentWillMount() {
     const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
     const { gameId } = this.props.params
@@ -61,7 +61,6 @@ class CardGame extends PureComponent {
 
         <div className="board">
         <PlayerHand />
-          {!game.winnerId && game.cards.map(this.renderCard.bind(this))}
         </div>
 
         <WinnerStatus />

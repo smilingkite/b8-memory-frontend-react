@@ -5,30 +5,30 @@ import './Card.css'
 class Card extends PureComponent {
   static propTypes = {
     symbol: PropTypes.string.isRequired,
-    visible: PropTypes.bool,
+    selected: PropTypes.bool,
     won: PropTypes.bool,
   }
 
-  state = { visible: true, won: false } // visible true for now
+  state = { selected: true, won: false } // selected true for now
 
   componentDidMount() {
-    const { visible, won } = this.props
-    this.setState({ visible, won })
+    const { selected, won } = this.props
+    this.setState({ selected, won })
   }
 
   componentWillReceiveProps(nextProps) {
     const isLastCard = this.props.index === nextProps.lastCard
     const lastCardChanged = !!nextProps.lastCard && this.props.lastCard !== nextProps.lastCard
-    const { visible, won } = nextProps
+    const { selected, won } = nextProps
 
     if (isLastCard) {
-      this.setState({ visible: true })
+      this.setState({ selected: true })
     }
 
     if (lastCardChanged) {
-      this.pauseUpdate(visible, won)
+      this.pauseUpdate(selected, won)
     } else {
-      this.setState({ visible, won })
+      this.setState({ selected, won })
     }
   }
 
@@ -38,26 +38,26 @@ class Card extends PureComponent {
     onFlip()
   }
 
-  pauseUpdate(visible, won) {
+  pauseUpdate(selected, won) {
     const component = this
     setTimeout(() => {
-      component.setState({ visible, won })
+      component.setState({ selected, won })
     }, 1000)
 
   }
 
   render() {
     const { symbol } = this.props
-    const { visible, won } = this.state
+    const { selected, won } = this.state
 
     return (
-      <div className={`Card${visible ? ' flipped' : ''}${won ? ' won' : ''}`} onClick={this.flip.bind(this)}>
+      <div className={`Card${selected ? ' flipped' : ''}${won ? ' won' : ''}`} onClick={this.flip.bind(this)}>
     		<div className="flipper">
     			<div className="front">
     				&nbsp;
     			</div>
     			<div className="back">
-    				{visible ? <span className="symbol">{symbol}</span> : <span>&nbsp;</span> }
+    				{selected ? <span className="symbol">{symbol}</span> : <span>&nbsp;</span> }
     			</div>
     		</div>
     	</div>

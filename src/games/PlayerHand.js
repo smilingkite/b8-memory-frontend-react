@@ -9,7 +9,7 @@ import Card from './Card'
 class PlayerHand extends PureComponent {
   // static propTypes = {
   //   hand: PropTypes.array.isRequired,
-  //   // visible: PropTypes.bool,
+  //   // selected: PropTypes.bool,
   //   // won: PropTypes.bool,
   // }
   renderCard(card, index) {
