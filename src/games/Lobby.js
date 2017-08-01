@@ -5,7 +5,7 @@ import fetchGames from '../actions/games/fetch'
 import subscribeToGames from '../actions/games/subscribe'
 import CreateGameButton from './CreateGameButton'
 import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui/Menu'; 
 import MenuItem from 'material-ui/MenuItem';
 import WatchGameIcon from 'material-ui/svg-icons/image/remove-red-eye';
 import JoinGameIcon from 'material-ui/svg-icons/social/person-add';

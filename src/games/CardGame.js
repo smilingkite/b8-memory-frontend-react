@@ -5,11 +5,11 @@ import getCurrentGame from '../actions/games/get'
 import fetchGames from '../actions/games/fetch'
 import subscribeToGames from '../actions/games/subscribe'
 import Card from './Card'
-import './MemoryGame.css'
+import './CardGame.css'
 import flipCard from '../actions/games/flip-card'
 import WinnerStatus from './WinnerStatus'
 
-class MemoryGame extends PureComponent {
+class CardGame extends PureComponent {
   componentWillMount() {
     const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
     const { gameId } = this.props.params
@@ -43,8 +43,8 @@ class MemoryGame extends PureComponent {
     if (!game) return null
 
     return (
-      <div className="MemoryGame">
-        <h1>MemoryGame!</h1>
+      <div className="CardGame">
+        <h1>CardGame!</h1>
 
         { game.isPlayable ?
           <p className="turn">
@@ -84,4 +84,4 @@ export default connect(mapStateToProps, {
   fetchGames,
   subscribeToGames,
   flipCard,
-})(MemoryGame)
+})(CardGame)

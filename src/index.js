@@ -8,7 +8,7 @@ import './index.css';
 
 import App from './App';
 import Lobby from './games/Lobby'
-import MemoryGame from './games/MemoryGame'
+import CardGame from './games/CardGame'
 import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 
@@ -23,7 +23,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Lobby} />
-        <Route path="/games/:gameId" component={MemoryGame} />
+        <Route path="/games/:gameId" component={CardGame} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
       </Route>

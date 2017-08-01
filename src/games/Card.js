@@ -9,7 +9,7 @@ class Card extends PureComponent {
     won: PropTypes.bool,
   }
 
-  state = { visible: false, won: false }
+  state = { visible: true, won: false } // visible true for now
 
   componentDidMount() {
     const { visible, won } = this.props

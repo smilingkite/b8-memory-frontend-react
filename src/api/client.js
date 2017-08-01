@@ -5,7 +5,7 @@ import hooks from 'feathers-hooks'
 import auth from 'feathers-authentication-client'
 import io from 'socket.io-client/dist/socket.io'
 
-const host = process.env.API_HOST || 'https://memoryb8api.herokuapp.com'
+const host = process.env.API_HOST || "http://localhost:3030"
 
 const socket = io(host, {
   transports: ['websocket']
