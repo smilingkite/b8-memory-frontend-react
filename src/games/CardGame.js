@@ -5,11 +5,13 @@ import getCurrentGame from '../actions/games/get'
 import fetchGames from '../actions/games/fetch'
 import subscribeToGames from '../actions/games/subscribe'
 import Card from './Card'
+import PlayerHand from './PlayerHand'
 import './CardGame.css'
 import flipCard from '../actions/games/flip-card'
 import WinnerStatus from './WinnerStatus'
 
 class CardGame extends PureComponent {
+  
   componentWillMount() {
     const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
     const { gameId } = this.props.params
@@ -44,7 +46,8 @@ class CardGame extends PureComponent {
 
     return (
       <div className="CardGame">
-        <h1>CardGame!</h1>
+        <h1>Card Game!</h1>
+        <PlayerHand />
 
         { game.isPlayable ?
           <p className="turn">
@@ -57,6 +60,7 @@ class CardGame extends PureComponent {
         <p className="wonCards">{ pairs.join(', ') }</p>
 
         <div className="board">
+        <PlayerHand />
           {!game.winnerId && game.cards.map(this.renderCard.bind(this))}
         </div>
 
