@@ -11,7 +11,7 @@ import flipCard from '../actions/games/flip-card'
 import WinnerStatus from './WinnerStatus'
 
 class CardGame extends PureComponent {
-debugger 
+debugger
   componentWillMount() {
     const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
     const { gameId } = this.props.params
@@ -29,18 +29,8 @@ debugger
     }
   }
 
-  renderCard(card, index) {
-    const { lastCard } = this.props.game
-
-    return <Card
-      key={index} { ...card }
-      index={index}
-      lastCard={lastCard}
-      onFlip={this.flipCard(index).bind(this)} />
-  }
-
   render() {
-    const { game, hasTurn, pairs } = this.props
+    const { game, hasTurn } = this.props
 
     if (!game) return null
 
@@ -56,8 +46,6 @@ debugger
           <p className="waiting">
             Waiting for other players to join...
           </p> }
-
-        <p className="wonCards">{ pairs.join(', ') }</p>
 
         <div className="board">
         <PlayerHand />
@@ -75,7 +63,8 @@ const mapStateToProps = ({ currentUser, currentGame, games, subscriptions }) => 
   const currentPlayer = game && game.players.filter((p) => (p.userId === currentUser._id))[0]
 
   return {
-    pairs: (currentPlayer && currentPlayer.pairs) || [],
+    hand1: (game),
+    hand2: (game),
     game,
     hasTurn: game && game.players.map((p) => (p.userId))[game.turn] === currentUser._id,
     subscribed: subscriptions.includes('games'),

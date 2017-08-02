@@ -7,26 +7,45 @@ import subscribeToGames from '../actions/games/subscribe'
 import Card from './Card'
 
 class PlayerHand extends PureComponent {
-  // static propTypes = {
-  //   hand: PropTypes.array.isRequired,
-  //   // selected: PropTypes.bool,
-  //   // won: PropTypes.bool,
-  // }
+  componentWillMount() {
+    const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
+    const { gameId } = this.props.params
+
+    if (!game) fetchGames()
+      getCurrentGame(gameId)
+    if (!subscribed) subscribeToGames()
+  }
+
+  renderHand(hand, index) {
+    const { game } = this.props
+    const { hand1 } = this.props.game
+    if (!game) return null
+    return <PlayerHand
+    hand1 = {hand1}
+    />
+  }
   renderCard(card, index) {
     const { lastCard } = this.props.game
+
+    if (!game) return null
 
     return <Card
       key={index} { ...card }
       index={index}
-      lastCard={lastCard}
-      onFlip={this.flipCard(index).bind(this)} />
+      // lastCard={lastCard}
+      // onFlip={this.flipCard(index).bind(this)}
+      />
   }
 
   render() {
+    if (!game) return null
+    const { game } = this.props
 
     console.log("PlayerHand is rendering")
     return (
-      <h1>HAND</h1>
+      <div>hand
+        {game.hand1.map(this.renderCard.bind(this))}
+      </div>
     )
   }
 }

@@ -54,7 +54,7 @@ class Card extends PureComponent {
       <div className={`Card${selected ? ' flipped' : ''}${won ? ' won' : ''}`} onClick={this.flip.bind(this)}>
     		<div className="flipper">
     			<div className="front">
-    				&nbsp;
+    				&nbsp; 
     			</div>
     			<div className="back">
     				{selected ? <span className="symbol">{symbol}</span> : <span>&nbsp;</span> }
