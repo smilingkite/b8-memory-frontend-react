@@ -4,14 +4,12 @@ import { connect } from 'react-redux'
 import getCurrentGame from '../actions/games/get'
 import fetchGames from '../actions/games/fetch'
 import subscribeToGames from '../actions/games/subscribe'
-import Card from './Card'
+// import Card from './Card'
 import PlayerHand from './PlayerHand'
 import './CardGame.css'
-import flipCard from '../actions/games/flip-card'
 import WinnerStatus from './WinnerStatus'
 
 class CardGame extends PureComponent {
-debugger
   componentWillMount() {
     const { game, fetchGames, getCurrentGame, subscribeToGames, subscribed } = this.props
     const { gameId } = this.props.params
@@ -19,14 +17,6 @@ debugger
     if (!game) fetchGames()
     getCurrentGame(gameId)
     if (!subscribed) subscribeToGames()
-  }
-
-  flipCard(cardIndex) {
-    const { game } = this.props
-
-    return () => {
-      this.props.flipCard(game._id, cardIndex)
-    }
   }
 
   render() {
@@ -75,5 +65,4 @@ export default connect(mapStateToProps, {
   getCurrentGame,
   fetchGames,
   subscribeToGames,
-  flipCard,
 })(CardGame)
